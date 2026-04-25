@@ -109,7 +109,7 @@ async def low_quality_files(db: AsyncSession = Depends(get_db), current_user: Us
     token = create_access_token(data={"sub": current_user.email, "user_id": current_user.id})
     enriched = []
     for f in files:
-        img_src = f"http://localhost:5000/api/files/view?path={quote(f.path)}&token={token}"
+        img_src = f"https://urbanbyteai-backend.onrender.com/api/files/view?path={quote(f.path)}&token={token}"
         enriched.append({
             "id": f.id,
             "name": f.path.split('/')[-1].split('\\')[-1],
@@ -135,7 +135,7 @@ async def similar_images_api(db: AsyncSession = Depends(get_db), current_user: U
         
         images = []
         for j, f in enumerate(group):
-            img_src = f"http://localhost:5000/api/files/view?path={quote(f['path'])}&token={token}"
+            img_src = f"https://urbanbyteai-backend.onrender.com/api/files/view?path={quote(f['path'])}&token={token}"
             images.append({
                 "id": f["id"],
                 "src": img_src,
