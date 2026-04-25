@@ -49,7 +49,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), token_query: str
         raise credentials_exception
     return user
 
-@router.post("/api/auth/register")
+@router.post("/register")
 async def register(user_data: UserRegister, db: AsyncSession = Depends(get_db)):
     # Check if user exists
     result = await db.execute(select(User).where(User.email == user_data.email))
@@ -68,7 +68,7 @@ async def register(user_data: UserRegister, db: AsyncSession = Depends(get_db)):
     
     return {"message": "User registered successfully", "user_id": new_user.id}
 
-@router.post("/api/auth/login")
+@router.post("/login")
 async def login(user_data: UserLogin, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(User).where(User.email == user_data.email))
     user = result.scalars().first()
@@ -83,7 +83,7 @@ async def login(user_data: UserLogin, db: AsyncSession = Depends(get_db)):
     access_token = create_access_token(data={"sub": user.email, "user_id": user.id})
     return {"access_token": access_token, "token_type": "bearer"}
 
-@router.get("/api/auth/profile")
+@router.get("/profile")
 async def get_profile(db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
     from app.database.models import Milestone
     m_result = await db.execute(select(Milestone).where(Milestone.user_id == current_user.id))
