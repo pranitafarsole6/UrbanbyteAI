@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-multipart
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
+Pillow
+imagehash
+sqlalchemy[asyncio]
+aiomysql
+python-jose[cryptography]
+passlib[bcrypt]
+python-dotenv
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
